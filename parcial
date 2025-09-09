@@ -1,0 +1,40 @@
+import pandas as pd
+import numpy as np
+#1
+
+df_emicron = pd.read_csv("https://github.com/niconomist98/DataAnalyticsUQ/raw/refs/heads/main/Datos/EMICRON/emicron_identificacion.csv", encoding="latin", sep=",")
+total = df_emicron["F_EXP"].sum()
+print("Micronegocios en colombia:", int(total))                       
+micronegqui = df_emicron[(df_emicron["COD_DEPTO"] == 63) & (df_emicron["P35"] == 1) & (df_emicron["P241"].between(18, 30))]
+micronegqui18_30 = micronegqui["F_EXP"].sum()
+print(f"En el Quindío los hombres de 18 a 30 años son dueños de :", int(micronegqui18_30)) 
+#2
+
+manufacturasmr = df_emicron[(df_emicron["COD_DEPTO"] == 66) & (df_emicron["P35"] == 2) & (df_emicron["P241"].between(20, 30)) & 
+                                  (df_emicron['GRUPOS4'] == 2)]
+total_microMFR = manufacturasmr["F_EXP"].sum()
+print(f"en la industria manufacturera de Risaralda las mujeres entre los 20 y 30 son dueños de:", int(total_microMFR))
+#3
+
+micronegocioPM40 = df_emicron[(df_emicron["AREA"] == 66) & (df_emicron["P35"] == 2) & (df_emicron["P241"] > 40) & 
+                                  (df_emicron['GRUPOS4'] == 3)]
+total_microPM40 = micronegocioPM40['F_EXP'].sum()
+print(f'Los micronegocios de Pereira de mujeres mayores de 40:', int(total_microPM40))
+
+micronegocioAM40 = df_emicron[(df_emicron["AREA"] == 63) & (df_emicron["P35"] == 2) & (df_emicron["P241"] > 40) & 
+                                  (df_emicron['GRUPOS4'] == 3)]
+total_microAM40= micronegocioAM40['F_EXP'].sum()
+print(f'Los micronegocios de Armenia de mujeres mayores de 40:', int(total_microAM40))
+
+micronegocioMM40 = df_emicron[(df_emicron["AREA"] == 17) & (df_emicron["P35"] == 2) & (df_emicron["P241"] > 40) & 
+                                  (df_emicron['GRUPOS4'] == 3)]
+
+total_microMM40 = micronegocioMM40['F_EXP'].sum()
+print(f'Los micronegocios de Manizales de mujeres mayores de 40:', int(total_microMM40))
+print()
+print(f'La ciudad del eje cafetero que tiene mas micronegocios con dueñas mayores a 40 años es PEREIRA')
+#4
+
+nombre_comercial= df_emicron[(df_emicron["AREA"] == 63) & (df_emicron["P35"] == 1) & (df_emicron["P3035"] == 2)]
+total_micronc = nombre_comercial['F_EXP'].sum()
+print(f'En Armenia hay un total de', int(total_micronc), f'micronegocios de propietarios hombres que no tiene nombre comercial')
